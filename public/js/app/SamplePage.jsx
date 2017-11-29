@@ -1,4 +1,4 @@
-import Inferno from 'inferno'
+import Inferno from 'inferno' // eslint-disable-line
 import {Link} from 'inferno-router'
 
 export default function SamplePage ({children}) {
