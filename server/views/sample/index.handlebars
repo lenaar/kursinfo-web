@@ -1,9 +1,3 @@
-{{prefixScript '/static/js/app/view/indexModule.js'}}
+<script defer src="{{{ withVersion '/node/static/js/app.js' }}}"></script>
 
-<h1>node-web</h1>
-
-{{#if error}}
-  <p>Error: {{error}}</p>
-{{else}}
-  <div id="api-data">{{data}}</div>
-{{/if}}
+<div id="app">{{{html}}}</div>

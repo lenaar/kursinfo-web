@@ -7,14 +7,13 @@
  * *************************************************
  *
  */
-const { getEnv, devDefaults, unpackLDAPConfig, unpackRedisConfig, unpackNodeApiConfig } = require('kth-node-configuration')
+const { getEnv, devDefaults, unpackLDAPConfig, unpackRedisConfig } = require('kth-node-configuration')
 const { safeGet } = require('safe-utils')
 
 // DEFAULT SETTINGS used for dev, if you want to override these for you local environment, use env-vars in .env
 const devPort = devDefaults(3000)
 const devSsl = devDefaults(false)
 const devUrl = devDefaults('http://localhost:' + devPort)
-const devInnovationApi = devDefaults('http://localhost:3001/api/node?defaultTimeout=10000') // required=true&
 const devSessionKey = devDefaults('node-web.sid')
 const devSessionUseRedis = devDefaults(true)
 const devRedis = devDefaults('redis://localhost:6379/')
@@ -58,7 +57,6 @@ module.exports = {
 
   // Service API's
   nodeApi: {
-    nodeApi: unpackNodeApiConfig('NODE_API_URI', devInnovationApi)
   },
 
   // Cortina

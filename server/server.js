@@ -2,7 +2,6 @@ const server = require('kth-node-server')
 
 // Now read the server config etc.
 const config = require('./configuration').server
-require('./api')
 const AppRouter = require('kth-node-express-routing').PageRouter
 const getPaths = require('kth-node-express-routing').getPaths
 
@@ -62,19 +61,13 @@ const browserConfig = require('./configuration').browser
 const browserConfigHandler = require('kth-node-configuration').getHandler(browserConfig, getPaths())
 const express = require('express')
 
-// helper
-function setCustomCacheControl (res, path) {
-  if (express.static.mime.lookup(path) === 'text/html') {
-    // Custom Cache-Control for HTML files
-    res.setHeader('Cache-Control', 'no-cache')
-  }
-}
-
 // Files/statics routes--
 // Map components HTML files as static content, but set custom cache control header, currently no-cache to force If-modified-since/Etag check.
-server.use(config.proxyPrefixPath.uri + '/static/js/components', express.static('./dist/js/components', { setHeaders: setCustomCacheControl }))
+server.use(config.proxyPrefixPath.uri + '/static/icons', express.static('public/icons'))
 // Expose browser configurations
 server.use(config.proxyPrefixPath.uri + '/static/browserConfig', browserConfigHandler)
+// Map static content like images, css and js.
+server.use(config.proxyPrefixPath.uri + '/static/kth-style', express.static('./node_modules/kth-style/dist'))
 // Map static content like images, css and js.
 server.use(config.proxyPrefixPath.uri + '/static', express.static('./dist'))
 // Return 404 if static file isn't found so we don't go through the rest of the pipeline
@@ -180,7 +173,8 @@ server.use('/', systemRoute.getRouter())
 
 // App routes
 const appRoute = AppRouter()
-appRoute.get('system.index', config.proxyPrefixPath.uri + '/', serverLogin, Sample.getIndex)
+appRoute.get('system.index', config.proxyPrefixPath.uri + '/', Sample.getIndex)
+appRoute.get('system.index', config.proxyPrefixPath.uri + '/section', Sample.getIndex)
 appRoute.get('system.gateway', config.proxyPrefixPath.uri + '/gateway', getServerGatewayLogin('/'), requireRole('isAdmin'), Sample.getIndex)
 server.use('/', appRoute.getRouter())
 

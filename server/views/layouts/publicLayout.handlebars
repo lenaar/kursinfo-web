@@ -12,8 +12,7 @@
       <link href="{{canonicalUrl}}" rel="canonical">
     {{/if}}
 
-    {{prefixStyle '/static/css/bootstrap/bootstrap.min.css' 'styles' 'screen'}}
-    {{prefixStyle '/static/css/kth-style/kth-bootstrap-theme.css' 'styles' 'screen'}}
+    {{prefixStyle '/static/kth-style/css/kth-bootstrap.css' 'styles' 'screen'}}
     {{prefixStyle '/static/css/node-web.css' 'styles' 'screen'}}
 
     {{{render 'styles'}}}
@@ -26,10 +25,6 @@
       {{{blocks.analytics}}}
       <!-- analytics end -->
     {{/extend}}
-
-    {{#if debug}}
-      {{prefixScript '/static/js/lib/firebug-lite/build/firebug-lite.js' 'head-scripts'}}
-    {{/if}}
 
     {{{render 'head-scripts'}}}
   </head>

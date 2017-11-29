@@ -1,24 +1,33 @@
 'use strict'
 
-const api = require('../api')
 const co = require('co')
 const log = require('kth-node-log')
-const { safeGet } = require('safe-utils')
+const InfernoServer = require('inferno-server')
+const createElement = require('inferno-create-element')
+const { RouterContext, match } = require('inferno-router')
+let routeFactory = require('../../dist/js/server/app.js').default
 
 module.exports = {
   getIndex: co.wrap(getIndex)
 }
 
 function * getIndex (req, res, next) {
+  if (process.env['NODE_ENV'] === 'development') {
+    delete require.cache[require.resolve('../../dist/js/server/app.js')]
+    routeFactory = require('../../dist/js/server/app.js').default
+  }
   try {
-    const client = api.nodeApi.client
-    const paths = api.nodeApi.paths
-    const resp = yield client.getAsync(client.resolve(paths.getDataById.uri, { id: '123' }), { useCache: true })
+    const routes = routeFactory(req.originalUrl)
+    const renderProps = match(routes, req.originalUrl)
+    if (renderProps.redirect) return res.redirect(renderProps.redirect)
 
+    // Load browserConfig and paths
+    // renderProps.matched.props.searchStore.setBrowserConfig(browserConfig, paths, serverConfig.hostUrl)
+
+    // Resolve all async before calls and render html
+    const html = InfernoServer.renderToString(createElement(RouterContext, renderProps))
     res.render('sample/index', {
-      debug: 'debug' in req.query,
-      data: resp.statusCode === 200 ? safeGet(() => { return resp.body.name }) : '',
-      error: resp.statusCode !== 200 ? safeGet(() => { return resp.body.message }) : ''
+      html: html
     })
   } catch (err) {
     log.error('Error in getIndex', { error: err })

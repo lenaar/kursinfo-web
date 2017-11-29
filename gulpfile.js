@@ -50,6 +50,30 @@ gulp.task('moveResources', function () {
 gulp.task('transpileSass', () => sass())
 
 /* Put any addintional helper tasks here */
+const infernoTask = require('kth-node-inferno/gulpTasks/infernoTask')({
+  src: [
+    'public/js/app/app.jsx'
+  ],
+  destinationPath: 'dist/js',
+  dirname: __dirname
+})
+
+const infernoServerTask = require('kth-node-inferno/gulpTasks/infernoServerTask')({
+  src: [
+    'public/js/app/app.jsx',
+    'public/js/app/SearchWidget.jsx',
+    'public/js/app/admin.jsx'
+  ],
+  destinationPath: 'dist/js/server',
+  dirname: __dirname
+})
+
+gulp.task('inferno', function () {
+  return mergeStream(
+    infernoTask(),
+    infernoServerTask()
+  )
+})
 
 /**
  *
@@ -59,10 +83,12 @@ gulp.task('transpileSass', () => sass())
 
 gulp.task('clean', clean)
 
-gulp.task('build', ['moveResources', 'vendor', 'webpack'], () => sass())
+gulp.task('build', ['moveResources', 'vendor', 'webpack', 'inferno'], () => sass())
 
 gulp.task('watch', ['build'], function () {
   gulp.watch(['./public/js/app/**/*.js', './public/js/components/**/*'], ['webpack'])
   gulp.watch(['./public/js/vendor.js'], ['vendor'])
   gulp.watch(['./public/css/**/*.scss'], ['transpileSass'])
+  gulp.watch(['./public/js/app/**/*.js'], ['webpack'])
+  gulp.watch(['./public/js/app/**/*.jsx', './public/js/app/**/*.js'], ['inferno'])
 })
