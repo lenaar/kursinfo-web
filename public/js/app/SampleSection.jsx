@@ -1,5 +1,25 @@
-import Inferno from 'inferno' // eslint-disable-line
+import Component from 'inferno-component'
+import {connect} from 'inferno-mobx'
 
-export default function SampleSection () {
-  return (<h1>Sektion 1</h1>)
+@connect(['sampleStore'])
+class SampleSection extends Component {
+
+  constructor(props) {
+    super(props)
+  }
+
+  render({sampleStore, params}) {
+    const mountain = sampleStore.mountainWithId(parseInt(params.id))
+    return mountain ? (
+      <div>
+        <h1>{mountain.name}</h1>
+        <dl>
+          <dt>Höjd</dt>
+          <dd>{mountain.height}</dd>
+        </dl>
+      </div>
+    ): <div/>
+  }
 }
+
+export default SampleSection

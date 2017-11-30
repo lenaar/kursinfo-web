@@ -8,7 +8,8 @@ const { RouterContext, match } = require('inferno-router')
 let routeFactory = require('../../dist/js/server/app.js').default
 
 module.exports = {
-  getIndex: co.wrap(getIndex)
+  getIndex: co.wrap(getIndex),
+  getData
 }
 
 function * getIndex (req, res, next) {
@@ -33,4 +34,15 @@ function * getIndex (req, res, next) {
     log.error('Error in getIndex', { error: err })
     next(err)
   }
+}
+
+function getData(req, res, next) {
+  res.json({
+    coolMountains: [
+      {id: 0, name: 'Matterhorn', height: 4478},
+      {id: 1, name: 'Everest', height: 8848},
+      {id: 2, name: 'Dundret', height: 825},
+      {id: 3, name: 'Ryfjället', height: 1413},
+    ]
+  })
 }

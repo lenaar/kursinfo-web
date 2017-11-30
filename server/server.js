@@ -173,9 +173,9 @@ server.use('/', systemRoute.getRouter())
 
 // App routes
 const appRoute = AppRouter()
-appRoute.get('system.index', config.proxyPrefixPath.uri + '/', Sample.getIndex)
-appRoute.get('system.index', config.proxyPrefixPath.uri + '/section', Sample.getIndex)
-appRoute.get('system.gateway', config.proxyPrefixPath.uri + '/gateway', getServerGatewayLogin('/'), requireRole('isAdmin'), Sample.getIndex)
+appRoute.get('app.index', config.proxyPrefixPath.uri + '/', Sample.getIndex)
+appRoute.get('app.index', config.proxyPrefixPath.uri + '/section/:id', Sample.getIndex)
+appRoute.get('app.data', config.proxyPrefixPath.uri + '/api/data', Sample.getData)
 server.use('/', appRoute.getRouter())
 
 // Not found etc
