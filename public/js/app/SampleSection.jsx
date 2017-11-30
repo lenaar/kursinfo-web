@@ -3,12 +3,7 @@ import {connect} from 'inferno-mobx'
 
 @connect(['sampleStore'])
 class SampleSection extends Component {
-
-  constructor(props) {
-    super(props)
-  }
-
-  render({sampleStore, params}) {
+  render ({sampleStore, params}) {
     const mountain = sampleStore.mountainWithId(parseInt(params.id))
     return mountain ? (
       <div>
@@ -18,7 +13,7 @@ class SampleSection extends Component {
           <dd>{mountain.height}</dd>
         </dl>
       </div>
-    ): <div/>
+    ) : <div />
   }
 }
 

@@ -161,7 +161,6 @@ server.use(excludeExpression, require('kth-node-web-common/lib/web/crawlerRedire
  * **********************************
  */
 const { System, Sample } = require('./controllers')
-const { requireRole } = require('./authentication')
 
 // System routes
 const systemRoute = AppRouter()

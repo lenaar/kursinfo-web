@@ -3,13 +3,8 @@ import Component from 'inferno-component'
 import {Link} from 'inferno-router'
 
 @connect(['sampleStore'])
-class SampleIndex extends Component{
-
-  constructor(props) {
-    super(props)
-  }
-
-  render({sampleStore}) {
+class SampleIndex extends Component {
+  render ({sampleStore}) {
     return (
       <div>
         <h1>Lista av berg</h1>

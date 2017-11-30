@@ -36,13 +36,13 @@ function * getIndex (req, res, next) {
   }
 }
 
-function getData(req, res, next) {
+function getData (req, res, next) {
   res.json({
     coolMountains: [
       {id: 0, name: 'Matterhorn', height: 4478},
       {id: 1, name: 'Everest', height: 8848},
       {id: 2, name: 'Dundret', height: 825},
-      {id: 3, name: 'Ryfjället', height: 1413},
+      {id: 3, name: 'Ryfjället', height: 1413}
     ]
   })
 }
