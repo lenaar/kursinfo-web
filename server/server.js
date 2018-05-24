@@ -63,7 +63,7 @@ const browserConfigHandler = require('kth-node-configuration').getHandler(browse
 const express = require('express')
 
 // helper
-function setCustomCacheControl(res, path) {
+function setCustomCacheControl (res, path) {
   if (express.static.mime.lookup(path) === 'text/html') {
     // Custom Cache-Control for HTML files
     res.setHeader('Cache-Control', 'no-cache')
