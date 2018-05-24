@@ -57,6 +57,7 @@
   },
   "devDependencies": {
     "babel-core": "^6.9.0",
+    "babel-eslint": "^8.2.3",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.9.0",
     "browser-sync": "^2.12.8",
@@ -83,6 +84,7 @@
     "maxerr": 5
   },
   "standard": {
+    "parser": "babel-eslint",
     "ignore": [
       "public/js/lib"
     ]

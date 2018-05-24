@@ -63,7 +63,7 @@ const browserConfigHandler = require('kth-node-configuration').getHandler(browse
 const express = require('express')
 
 // helper
-function setCustomCacheControl (res, path) {
+function setCustomCacheControl(res, path) {
   if (express.static.mime.lookup(path) === 'text/html') {
     // Custom Cache-Control for HTML files
     res.setHeader('Cache-Control', 'no-cache')
@@ -179,7 +179,7 @@ server.use('/', systemRoute.getRouter())
 
 // App routes
 const appRoute = AppRouter()
-appRoute.get('system.index', config.proxyPrefixPath.uri + '/', serverLogin, Sample.getIndex)
+appRoute.get('system.index', config.proxyPrefixPath.uri + '/', Sample.getIndex)
 appRoute.get('system.gateway', config.proxyPrefixPath.uri + '/gateway', getServerGatewayLogin('/'), requireRole('isAdmin'), Sample.getIndex)
 server.use('/', appRoute.getRouter())
 

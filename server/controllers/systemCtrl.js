@@ -12,7 +12,7 @@ const getPaths = require('kth-node-express-routing').getPaths
 const language = require('kth-node-web-common/lib/language')
 const i18n = require('../../i18n')
 const api = require('../api')
-const co = require('co')
+const os = require('os')
 const Promise = require('bluebird')
 const registry = require('component-registry').globalRegistry
 const { IHealthCheck } = require('kth-node-monitor').interfaces
@@ -24,7 +24,7 @@ const { IHealthCheck } = require('kth-node-monitor').interfaces
  */
 
 module.exports = {
-  monitor: co.wrap(_monitor),
+  monitor: _monitor,
   about: _about,
   robotsTxt: _robotsTxt,
   paths: _paths,
@@ -103,6 +103,7 @@ function _about (req, res) {
     jenkinsBuildDate: JSON.stringify(version.jenkinsBuildDate),
     dockerName: JSON.stringify(version.dockerName),
     dockerVersion: JSON.stringify(version.dockerVersion),
+    hostname: os.hostname(),
     language: language.getLanguage(res),
     env: require('../server').get('env')
   })
