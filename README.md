@@ -90,7 +90,7 @@ Then you need to start the server:
 $ npm start
 ```
 
-This will 
+This will
 
 1. run `gulp build:dev` once to build SASS-files, and prepare browser JavaScript files
 2. start `nodemon` which triggers restart when server-side files have been updated
@@ -117,3 +117,5 @@ If you start Mode.js from VS Code you can set breakpoints in your editor. The la
 }
 ```
 Setting NODE_ENV is currently required.
+
+   

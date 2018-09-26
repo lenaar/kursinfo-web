@@ -7,14 +7,14 @@
  * *************************************************
  *
  */
-const { getEnv, devDefaults, unpackLDAPConfig, unpackRedisConfig, unpackNodeApiConfig } = require('kth-node-configuration')
+const { getEnv, devDefaults, unpackKOPPSConfig, unpackLDAPConfig, unpackRedisConfig, unpackNodeApiConfig } = require('kth-node-configuration')
 const { safeGet } = require('safe-utils')
 
 // DEFAULT SETTINGS used for dev, if you want to override these for you local environment, use env-vars in .env
 const devPort = devDefaults(3000)
 const devSsl = devDefaults(false)
 const devUrl = devDefaults('http://localhost:' + devPort)
-const devInnovationApi = devDefaults('http://localhost:3001/api/node?defaultTimeout=10000') // required=true&
+const devInnovationApi = devDefaults('http://localhost:3001/api/kursinfo?defaultTimeout=10000') // required=true&
 const devSessionKey = devDefaults('node-web.sid')
 const devSessionUseRedis = devDefaults(true)
 const devRedis = devDefaults('redis://localhost:6379/')
@@ -22,6 +22,9 @@ const devLdap = undefined // Do not enter LDAP_URI or LDAP_PASSWORD here, use en
 const devSsoBaseURL = devDefaults('https://login-r.referens.sys.kth.se')
 const devLdapBase = devDefaults('OU=UG,DC=ref,DC=ug,DC=kth,DC=se')
 // END DEFAULT SETTINGS
+
+//TEMP - POC
+const devKOPPSURI = devDefaults('https://kopps-r.referens.sys.kth.se/api/kopps/v2/?defaultTimeout=60000')
 
 // These options are fixed for this application
 const ldapOptions = {
@@ -94,5 +97,7 @@ module.exports = {
       cookie: { secure: safeGet(() => getEnv('SESSION_SECURE_COOKIE', false) === 'true') }
     },
     redisOptions: unpackRedisConfig('REDIS_URI', devRedis)
-  }
+  },
+
+  kopps: unpackKOPPSConfig('KOPPS_URI', devKOPPSURI),
 }

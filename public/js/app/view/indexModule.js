@@ -7,5 +7,5 @@
 var $ = require('jquery')
 
 $(function () {
-  $('h1').text(' ♫ ♬ ♪ ♩ ♪ node-web updated from JS  ♫ ♬ ♪ ♩ ♪ ')
+  $('h1').text(' Kursinformation ')
 })

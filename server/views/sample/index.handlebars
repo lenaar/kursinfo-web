@@ -5,5 +5,7 @@
 {{#if error}}
   <p>Error: {{error}}</p>
 {{else}}
-  <div id="api-data">{{data}}</div>
+  <div id="api-data"><b>From MongoDB:</b> <br/> Name:{{data}} </div>
+  <div id="api-kopps1"><b>From Kopps API:</b> <br/>Kurskod: {{koppstest.code}} </div>
+  <div id="api-kopps2">Kursnamn: {{koppstest.title.sv}},  {{koppstest.credits}} poäng</div>
 {{/if}}
