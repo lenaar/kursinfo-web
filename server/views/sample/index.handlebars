@@ -7,5 +7,11 @@
 {{else}}
   <div id="api-data"><b>From MongoDB:</b> <br/> Name:{{data}} </div>
   <div id="api-kopps1"><b>From Kopps API:</b> <br/>Kurskod: {{koppstest.code}} </div>
-  <div id="api-kopps2">Kursnamn: {{koppstest.title.sv}},  {{koppstest.credits}} poäng</div>
+  <div id="api-kopps2">Kursnamn: <b>{{koppstest.title.sv}}</b> </div>
+  <div id="api-kopps3">Poäng: {{koppstest.credits}} </div>
+  <form action="/kursinfo" method="post">
+    <label for="team_name">Enter code: </label>
+    <input id="course_code" type="text" name="course_code" value="">
+    <input type="submit" value="Hämta kurs">
+</form>
 {{/if}}

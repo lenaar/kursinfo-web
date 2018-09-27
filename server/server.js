@@ -182,6 +182,7 @@ server.use('/', systemRoute.getRouter())
 const appRoute = AppRouter()
 appRoute.get('system.index', config.proxyPrefixPath.uri + '/', serverLogin, Sample.getIndex)
 appRoute.get('system.gateway', config.proxyPrefixPath.uri + '/gateway', getServerGatewayLogin('/'), requireRole('isAdmin'), Sample.getIndex)
+appRoute.post('sample.postCourseCode', config.proxyPrefixPath.uri + '/', Sample.postCourseCode)
 server.use('/', appRoute.getRouter())
 
 // Not found etc
